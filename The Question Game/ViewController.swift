@@ -9,21 +9,36 @@
 import UIKit
 
 class ViewController: UIViewController {
+    
+    //button actions to get new quote, reset background, run transition, gain new color for button
     @IBAction func again() {
         reset()
-        
     }
+    
+    //button reference
     @IBOutlet weak var button: UIButton!
+    
+    //background reference
     @IBOutlet weak var background: UIImageView!
+    
+    //quote label
     @IBOutlet weak var questionLabel: UILabel!
 
+    
+    //fundemental action on screen
     func reset() {
+        
+        //pick random number from the array, cast as Int, then assign to the constant
         let randomQuestionsIndex = Int(arc4random_uniform(UInt32(questionsArray.count)))
         let randomColor = colorsArray[Int(arc4random_uniform(UInt32(colorsArray.count)))]
-        let randomBackgroundImage = UIImage(named: "image\(arc4random_uniform(7) + 1).png")
-        //background.image = randomBackgroundImage
-        //questionLabel.text = String(questionsArray[randomQuestionsIndex])
+        
+        //since images are lazily labeld as image1,2,3,4,5 etc. we can use string interpolation to pick random backgroun image. Must change nuber everytime though. Should put in array to make flexible code
+        let randomBackgroundImage = UIImage(named: "image\(arc4random_uniform(8) + 1).png")
+        
+        //Choose random color from colorsArray to show background of button
         button.backgroundColor = randomColor
+        
+        //transitions for both background (self.background) and for quote labels (self. questionLabel)
         UIView.transitionWithView(self.background,
             duration:0.5,
             options: UIViewAnimationOptions.TransitionCrossDissolve,
